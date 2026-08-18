@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Clinical RAG Grounded Response",
+  "description": "Schema for grounded clinical generation responses with citation enforcement.",
+  "type": "object",
+  "required": ["recommendation", "evidence", "citations", "confidence"],
+  "properties": {
+    "recommendation": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The clinical recommendation or refusal message."
+    },
+    "evidence": {
+      "type": "string",
+      "description": "Direct quote or paraphrase from the retrieved guideline text supporting the recommendation. Empty string allowed only when confidence is 'insufficient'."
+    },
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["document", "section", "page"],
+        "properties": {
+          "document": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Name of the source document."
+          },
+          "section": {
+            "type": "string",
+            "description": "Section or heading within the document."
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Page number in the source document."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "List of citation objects. Must contain at least one entry unless confidence is 'insufficient'."
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low", "insufficient"],
+      "description": "Confidence level of the response based on retrieved evidence quality."
+    }
+  },
+  "additionalProperties": false,
+  "if": {
+    "properties": {
+      "confidence": {
+        "enum": ["high", "medium", "low"]
+      }
+    }
+  },
+  "then": {
+    "properties": {
+      "evidence": {
+        "minLength": 1
+      },
+      "citations": {
+        "minItems": 1
+      }
+    }
+  }
+}

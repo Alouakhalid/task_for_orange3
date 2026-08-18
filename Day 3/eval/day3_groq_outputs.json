@@ -1,0 +1,22 @@
+{
+  "generation_answer": {
+    "recommendation": "The target systolic blood pressure treatment goal is <130 mmHg.",
+    "evidence": "WHO recommends a target systolic blood pressure treatment goal of <130 mmHg in patients with hypertension and known cardiovascular disease (CVD).",
+    "citations": [
+      {
+        "document": "Guideline for the pharmacological treatment of hypertension in adults",
+        "section": "3.6 Target blood pressure",
+        "page": 28
+      }
+    ],
+    "confidence": "high"
+  },
+  "refusal_answer": {
+    "recommendation": "I could not find enough information in the indexed guideline to answer this confidently. This source does not appear to cover this topic \u2014 try rephrasing, or consult a clinician directly.",
+    "evidence": "",
+    "citations": [],
+    "confidence": "insufficient"
+  },
+  "generation_question": "What is the target blood pressure for a patient with cardiovascular disease?",
+  "refusal_question": "What screening interval does this guideline recommend for breast cancer?"
+}
